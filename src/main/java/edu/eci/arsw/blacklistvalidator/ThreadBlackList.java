@@ -5,7 +5,7 @@ import edu.eci.arsw.spamkeywordsdatasource.HostBlacklistsDataSourceFacade;
 import java.util.LinkedList;
 
 public class ThreadBlackList extends Thread {
-    private static final int BLACK_LIST_ALARM_COUNT=10;
+    private static final int BLACK_LIST_ALARM_COUNT=5;
     private int a,b,ocurrences;
     private String Host;
     LinkedList<Integer> blackListOcurrences=new LinkedList<>();
@@ -20,7 +20,7 @@ public class ThreadBlackList extends Thread {
         this.ocurrencesCount=0;
     }
     public void run() {
-        for ( int i = a; i < b && checkedListsCount < BLACK_LIST_ALARM_COUNT; i++ ) {
+        for ( int i = a; i < b && ocurrencesCount < BLACK_LIST_ALARM_COUNT; i++ ) {
             checkedListsCount++;
             if ( skds.isInBlackListServer( i, Host ) ) {
                 blackListOcurrences.add( i );
@@ -33,5 +33,8 @@ public class ThreadBlackList extends Thread {
     }
     public  int getOcurrencesCount(){
             return ocurrencesCount;
+    }
+    public  int getCheckedListsCount(){
+        return checkedListsCount;
     }
 }

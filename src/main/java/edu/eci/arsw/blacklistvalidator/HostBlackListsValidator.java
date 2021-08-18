@@ -29,27 +29,36 @@ public class HostBlackListsValidator {
      * @param ipaddress suspicious host's IP address.
      * @return  Blacklists numbers where the given host's IP address was found.
      */
-    public List<Integer> checkHost(String ipaddress){
+    public List<Integer> checkHost(String ipaddress, int N) throws InterruptedException {
         
         LinkedList<Integer> blackListOcurrences=new LinkedList<>();
-        
         int ocurrencesCount=0;
-        
         HostBlacklistsDataSourceFacade skds=HostBlacklistsDataSourceFacade.getInstance();
-        
         int checkedListsCount=0;
-        
-        for (int i=0;i<skds.getRegisteredServersCount() && ocurrencesCount<BLACK_LIST_ALARM_COUNT;i++){
-            checkedListsCount++;
-            
-            if (skds.isInBlackListServer(i, ipaddress)){
-                
-                blackListOcurrences.add(i);
-                
-                ocurrencesCount++;
-            }
+        System.out.println(skds.getRegisteredServersCount() );
+        int num = skds.getRegisteredServersCount()/N;
+        int mod = skds.getRegisteredServersCount()%N;
+        LinkedList<ThreadBlackList> threadList=new LinkedList<>();
+
+        for(int i=0;i<N-1;i++){
+            ThreadBlackList hilo = new ThreadBlackList( (i*num),(i*num)+num,ipaddress );
+            hilo.start();
+            threadList.add(hilo);
         }
-        
+        ThreadBlackList hilo = new ThreadBlackList( (N-1)*num,skds.getRegisteredServersCount(),ipaddress );
+        hilo.start();
+        threadList.add(hilo);
+
+        for(ThreadBlackList tl:threadList ){
+            tl.join();
+        }
+
+
+        for(ThreadBlackList tl:threadList ){
+            ocurrencesCount += tl.getOcurrencesCount();
+            checkedListsCount += tl.getCheckedListsCount();
+            blackListOcurrences.addAll(tl.getBlackListOcurrences());
+        }
         if (ocurrencesCount>=BLACK_LIST_ALARM_COUNT){
             skds.reportAsNotTrustworthy(ipaddress);
         }
