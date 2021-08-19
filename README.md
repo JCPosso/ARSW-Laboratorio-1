@@ -150,20 +150,20 @@ Para la ejecucion basta con el comando `mvn exec:java -Dexec.mainClass="edu.eci.
 	A partir de lo anterior, implemente la siguiente secuencia de experimentos para realizar las validación de direcciones IP dispersas (por ejemplo 202.24.34.55), tomando los tiempos de ejecución de los mismos (asegúrese de hacerlos en la misma máquina):
 
 	1. Un solo hilo.
-	![](img/1 t.PNG)
-	![](img/1.PNG)
+	![](img/1-t.png)
+	![](img/1.png)
 	2. Tantos hilos como núcleos de procesamiento (haga que el programa determine esto haciendo uso del [API Runtime](https://docs.oracle.com/javase/7/docs/api/java/lang/Runtime.html)).
-	![](img/8 t.PNG)
-	![](img/8.PNG)
+	![](img/8-t.png)
+	![](img/8.png)
 	3. Tantos hilos como el doble de núcleos de procesamiento.
-	![](img/16 t.PNG)
-	![](img/16.PNG)
+	![](img/16-t.png)
+	![](img/16.png)
 	4. 50 hilos.
-	![](img/50 t.PNG)
-	![](img/50.PNG)
+	![](img/50-t.png)
+	![](img/50.png)
 	5. 100 hilos.
-	![](img/100 t.PNG)
-	![](img/100.PNG)
+	![](img/100-t.png)
+	![](img/100.png)
 
 
 	Con lo anterior, y con los tiempos de ejecución dados, haga una gráfica de tiempo de solución vs. número de hilos. Analice y plantee hipótesis con su compañero para las siguientes preguntas (puede tener en cuenta lo reportado por jVisualVM):
