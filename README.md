@@ -168,8 +168,8 @@ Para la ejecucion basta con el comando `mvn exec:java -Dexec.mainClass="edu.eci.
 
 	Con lo anterior, y con los tiempos de ejecución dados, haga una gráfica de tiempo de solución vs. número de hilos. Analice y plantee hipótesis con su compañero para las siguientes preguntas (puede tener en cuenta lo reportado por jVisualVM):
 
-	![](img/tabla.PNG)
-	![](img/grafica.PNG)
+	![](img/tabla.png)
+	![](img/grafica.png)
 
 	**Parte IV - Ejercicio Black List Search**
 
